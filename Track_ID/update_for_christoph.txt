@@ -1,9 +1,0 @@
-UPDATE FOR CRISTOPH
-The Track ID group came up with a couple of rules for 
-programming. Besides that we came up with three methods
-for combining track ID's.
-1. This method makes use of the last 'term' in a trajectory with the same TrackID. Around this last term there is a virtual cylinder or egg shape and then looks if there is a first 'term' of a trajectory with the same TrackID present in this cylinder. If so, then it combines the two TrackID's.
-2. Regression method. For create a path "prediction" for each track ID by means of regression(not sure at this moment which type and whether we will be able to do it in 3D). The plan is to look for other track ID's whose coordinates are close to the the predicted path. In this way we would be able to group the track id's that a form a path.
-3. Connecting the cylinders method: By taking the starting point and the end point of a track ID and line is formed between theses two points. Then by using this line as the centerline of a cylinder or a TBD radius is extended from both sides to produce make the search area need to find the next point. The track ID of the point that is contained in this cylinder is then combined with the previous trackID forming one line.
-These programs will be finished before the next project session.
- 
