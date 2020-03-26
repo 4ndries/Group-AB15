@@ -6,6 +6,8 @@ If any point goes out of this threshold, even if it is within the same x-value, 
 Eventhough this ended up not making much of a impact on the data, it is worth knowing that the noise is being filtered correvtly. 
 This method can be also complemented with the method of eliminating other groups of outliers by inspecting the length of the array that holds these group in comparison with the columns' array length.
 
+One thing we could add is, consideration of z-coordinates. Although it's not possible to remove all the outliers just by looking at the z-coordinates, z-coordinates never change, so it may be effective to use as the first step before looking at x-y coordinates. 
+
 #Period
 In order to determine the contour or position of the airfoil at each angle, we have to consider each snapshot at a certain moment in time.
 Since the movement of the airfoil is sinusoidal in Case 1 & 2 with a given period of 2.5 seconds (0.4Hz), we can use this property to determine the times at which the airfoil is at the same position.
@@ -16,3 +18,4 @@ This results in several plots of the contour of the airfoil for each time it is 
 On another note, we can already determine what kind of function represents the position of the airfoil.
 This is namely a periodic function with an amplitude of 4 degrees (given) and a frequency of 0.4Hz. 
 This can be written as a function alpha = 4*sin(2*pi*t). This function still might require shifting so at least the angle of one snapshot at a certain time is required to shift the graph correctly.
+
