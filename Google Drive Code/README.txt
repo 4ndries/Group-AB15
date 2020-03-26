@@ -1,0 +1,1 @@
+This is what was still on the Google Drive. I have the feeling this is still being used, but I'm not sure. Do not replace these documents to somewhere else. ~ Thomas
