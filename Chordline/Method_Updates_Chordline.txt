@@ -1,0 +1,21 @@
+Data Analysis Method Approach | Chordline  
+
+Generally: using equivalent gradients of the unit NACA0018 airfoil surface as scaling method for the ‘real’ case.  
+
+ 
+What we have done so far: 
+
+1. Obtaining data of the general curve of NACA0018, which has a certain slope. The goal is to obtain a scaled version of this same type of airfoil.The interval of 0 to 25 mm from the leading edge is not deemed relevant for the analysis as the  
+
+2. Given the mean values of the points in x,y space, interpolating a function of the surface curve. This entails interpolating through the data points (splines) determine alphas (see images) at x_0 and ksi_0. Ski_0 till  Ski_i refers to the newly created data points after the last observed data points. These should all be along the airfoil curve.  
+
+3. Determining an algorithm to find the distance between x_0, ski_0. This also goes for the next data points x_1 to ski_1, … x_i to ski_i.  With the given data points, the slope at the ksi_i location can be computed using the derivative at that location. From this we can calculate the alphas (see image.)  
+
+ 
+c. Iterative process in which every data point x_i relates to a new point ksi_i (see image) and thus angle theta_i can be determined. Then, theta(i) is compared to theta 0 from which then the location of the starting point x_0 can be known. The direction of the step from x_i to ksi_i should be done such that an arror of about 202 mm intersects with the curve. Theta_i and theta_0 will be determined by intersection of curves plotted on grid x [25, 400-a]. 
+
+ 
+
+For the next session:  
+
+Currently important to have the right spline such that what recreate the angles of the reference airfoil by finding a good approximation of theta_0. 
