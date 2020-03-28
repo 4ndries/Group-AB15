@@ -112,8 +112,8 @@ def changeorigin(x,y,x0,y0):
     xtrue = []
     ytrue =[]
     minindex = np.argmin(x)
-    xmin = np.amin(x)
-    ymin = np.amin(y)
+    xmin = np.amin(x[minindex])
+    ymin = np.amin(y[minindex])
     xdiff = (x0-xmin)
     ydiff = (y0-ymin)
 
