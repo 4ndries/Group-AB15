@@ -71,7 +71,7 @@ def datamakecolumn(x,y, columnlengththreshold):
         ycurrentcol =[y[i]]
 
         for j in range(len(x)):
-            if abs(x[i]-x[j])**2 <= 100  and j != i:
+            if abs(x[i]-x[j])**2 + abs(y[i]-y[j])**2 <= 100  and j != i:
                 xcurrentcol.append(x[j])
                 ycurrentcol.append(y[j])
         if round(np.sum(xcurrentcol)) not in xcolsum and len(xcurrentcol) >= columnlengththreshold:
