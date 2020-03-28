@@ -112,7 +112,7 @@ def changeorigin(x,y,x0,y0):
         xtruei = x[i] + xdiff
         ytruei = y[i] + ydiff
         xtrue.append(xtruei)
-        ytrue.append
+        ytrue.append(ytruei)
     return xtrue, ytrue
 
 def rotatepoints(x,y,anglerad):
