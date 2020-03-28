@@ -124,7 +124,7 @@ def rotatepoints(x,y,anglerad):
     xrotate = []
     yrotate = []
 
-    for i in range(x):
+    for i in range(len(x)):
 
         v = [x[i],y[i]]
         vprime = np.dot(R,v)
