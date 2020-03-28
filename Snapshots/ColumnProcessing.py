@@ -47,7 +47,7 @@ def readsnapshotcoordinates(lines, snapshotnumber):
 #Input: x [array] len(n), y[array] len(n)
 #Output: xcols [array] len(m), ycols [array] len(m) where m < n
 #Takes snapshot x, y data and groups them per markers column and outputs x and y coordinates of points in each column
-def datamakecolumn(x, y, columnlengththreshold, error=10,):
+def datamakecolumn(x, y, columnlengththreshold, xerror=10, yerror=10):
 
     xcols = []
     ycols = []
@@ -57,7 +57,7 @@ def datamakecolumn(x, y, columnlengththreshold, error=10,):
         ycurrentcol =[y[i]]
 
         for j in range(len(x)):
-            if abs(x[i]-x[j])**2 + abs(y[i]-y[j])**2 <= error**2  and j != i:
+            if abs(x[i]-x[j])**2 <= xerror**2 and abs(y[i]-y[j])**2 <= yerror**2  and j != i:
                 xcurrentcol.append(x[j])
                 ycurrentcol.append(y[j])
         if round(np.sum(xcurrentcol)) not in xcolsum and len(xcurrentcol) >= columnlengththreshold:

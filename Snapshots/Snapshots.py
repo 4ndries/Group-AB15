@@ -45,7 +45,7 @@ for i in range(len(xsnaps)):
 xsnapcols,ysnapcols = cp.datamakecolumn(newxx,newyy,50)
 
 #Similar Procedure to earlier in order to end up at average position of all columns of all snapshots
-xsnapfinalcols,ysnapfinalcols = cp.columnstdfilter(xsnapcols,ysnapcols)
+xsnapfinalcols,ysnapfinalcols = cp.columnstdfilter(xsnapcols,ysnapcols,1)
 xsnapmean , ysnapmean = cp.columnaverage(xsnapfinalcols,ysnapfinalcols)
 
 #Use function changeOrigin to shift all points to origin with min at origin
