@@ -2,14 +2,17 @@ import numpy as np
 import math
 
 
+
+#Function: readSnapShotCoordinates (Tweak to original code)
+#Input: lines [array of strings], snapshotnumber [int]
+#Output: xx, yy, zz [array]
+#Takes the lines of a data file and records the coordinates of the snapshot specified
 def readsnapshotcoordinates(lines, snapshotnumber):
 
-    Snapshots = []
-    Data = []
-    Value = []
     xx = []
     yy = []
     zz = []
+
     i = 0
     n = -1
 
@@ -37,19 +40,13 @@ def readsnapshotcoordinates(lines, snapshotnumber):
                 xx.append(x)
                 yy.append(y)
                 zz.append(z)
-
-
-
-                Value.append([x,y,z])
-                Data.append(Value)
                 i = i + 1
     return xx,yy,zz
 
 #Function: Datamakecolumn
-#Input: x [array], y[array]
-#Output: xcols [array], ycols [array]
-# Takes snapshot x, y data and groups them per markers column and outputs x and y coordinates of points in  each column
-
+#Input: x [array] len(n), y[array] len(n)
+#Output: xcols [array] len(m), ycols [array] len(m) where m < n
+#Takes snapshot x, y data and groups them per markers column and outputs x and y coordinates of points in each column
 def datamakecolumn(x,y, columnlengththreshold):
 
     xcols = []
@@ -69,8 +66,11 @@ def datamakecolumn(x,y, columnlengththreshold):
             ycols.append(ycurrentcol)
     return xcols , ycols
 
-
-def columnstdfilter(x,y):
+#Function: ColumnStdFilter
+#Input: x, y [array] len(n)
+#Output: xfinalcols, yfinalcols [array] len(n)
+#Takes column values and filters extremes using standard deviation
+def columnstdfilter(x,y,sigma=3):
     xfinalcols = []
     yfinalcols = []
     for i in range(len(x)):
@@ -81,13 +81,17 @@ def columnstdfilter(x,y):
         ymean = np.average(y[i])
         for j in range(len(x[i])):
 
-            if  abs(x[i][j] - xmean)**2 + abs(y[i][j] - ymean)**2 <= 9*sd**2:
+            if  abs(x[i][j] - xmean)**2 + abs(y[i][j] - ymean)**2 <= (sigma*sd)**2:
                 xcurrentfinalcols.append(x[i][j])
                 ycurrentfinalcols.append(y[i][j])
         xfinalcols.append(xcurrentfinalcols)
         yfinalcols.append(ycurrentfinalcols)
     return xfinalcols, yfinalcols
 
+#Function: columnAverage
+#Input: x,y [array] len(n)
+#Output: xmean, ymean [array] len(m) where m = n = 8
+#Takes column coordinates and averages for each column returns array containg coordinates
 def columnaverage(x,y):
 
     xmean = []
@@ -99,12 +103,17 @@ def columnaverage(x,y):
         ymean.append(yaveragei)
     return xmean, ymean
 
+#Function: changeOrigin
+#Input: x,y [array] len(n), x0,y0 [int]
+#Output: xtrue, ytrue len(n)
+#Takes coordinates of point with lowest y coord and shifts it to desired origin (x0,y0)
 def changeorigin(x,y,x0,y0):
 
     xtrue = []
     ytrue =[]
-    xmin = np.amin(x)
-    ymin = np.amin(y)
+    minindex = np.argmin(y)
+    xmin = np.amin(minindex)
+    ymin = np.amin(minindex)
     xdiff = (x0-xmin)
     ydiff = (y0-ymin)
 
@@ -115,6 +124,10 @@ def changeorigin(x,y,x0,y0):
         ytrue.append(ytruei)
     return xtrue, ytrue
 
+#Function: rotatePoints
+#Input: x,y [array] len(n), anglerad [int]
+#Output: xrotate,yrotate [array] len(n)
+#Rotates a set of point on xy plane and rotates by angle in radian
 def rotatepoints(x,y,anglerad):
 
     R = []
