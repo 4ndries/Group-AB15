@@ -44,18 +44,6 @@ def readsnapshotcoordinates(lines, snapshotnumber):
                 i = i + 1
     return xx,yy,zz
 
-
-
-
-
-
-
-
-
-
-
-
-
 #Function: Datamakecolumn
 #Input: x [array], y[array]
 #Output: xcols [array], ycols [array]
@@ -100,6 +88,7 @@ def columnstdfilter(x,y):
     return xfinalcols, yfinalcols
 
 def columnaverage(x,y):
+
     xmean = []
     ymean = []
     for i in range(len(x)):
@@ -108,3 +97,18 @@ def columnaverage(x,y):
         xmean.append(xaveragei)
         ymean.append(yaveragei)
     return xmean, ymean
+
+def changeorigin(x,y,x0,y0):
+
+    xtrue = []
+    ytrue =[]
+    xmin = np.amin(x)
+    ymin = np.amin(y)
+    xdiff = (x0-xmin)
+    ydiff = (y0-ymin)
+
+    for i in range(len(x)):
+        xtruei = x[i] + xdiff
+        ytruei = y[i] + ydiff
+    return xtrue, ytrue
+
