@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 def readsnapshotcoordinates(lines, snapshotnumber):
@@ -111,6 +112,25 @@ def changeorigin(x,y,x0,y0):
         xtruei = x[i] + xdiff
         ytruei = y[i] + ydiff
         xtrue.append(xtruei)
-        ytrue.append(ytruei)
+        ytrue.append
     return xtrue, ytrue
 
+def rotatepoints(x,y,anglerad):
+
+    R = []
+    r1 = [math.cos(anglerad),-1*math.sin(anglerad)]
+    r2 = [math.sin(anglerad),math.cos(anglerad)]
+    R = [r1,r2]
+    xrotate = []
+    yrotate = []
+
+    for i in range(x):
+
+        v = [x[i],y[i]]
+        vprime = np.dot(R,v)
+        xnew = vprime[0]
+        ynew = vprime[1]
+        xrotate.append(xnew)
+        yrotate.append(ynew)
+
+    return xrotate,yrotate
