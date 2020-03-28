@@ -110,5 +110,7 @@ def changeorigin(x,y,x0,y0):
     for i in range(len(x)):
         xtruei = x[i] + xdiff
         ytruei = y[i] + ydiff
+        xtrue.append(xtruei)
+        ytrue.append(ytruei)
     return xtrue, ytrue
 
