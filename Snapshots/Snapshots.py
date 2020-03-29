@@ -15,6 +15,21 @@ rawData = open(r"Snapshots\Case0.dat" , "r")
 lines = rawData.readlines()
 rawData.close()
 
+airData = open(r"Snapshots\Airfoilcoord.txt" , "r")
+airlines = airData.readlines()
+airData.close()
+
+airx, airy = [], []
+for airline in airlines:
+    columns = airline.split(",")
+    xi = float(columns[0])
+    yi = float(columns[1])
+    airx.append(xi)
+    airy.append(yi)
+
+
+
+print(airx,airy)
 #For loop runs until specificed number of snapshots
 for masteri in range(100):
 
@@ -80,6 +95,31 @@ y2snaprotate = [] #Array containing reflection around x axis of points
 for i in range(len(ysnaprotate)):
     y2snaprotatei = -1*ysnaprotate[i]
     y2snaprotate.append(y2snaprotatei)
+
+#Shift column averages to line up with airfoil
+shiftxsnap ,shiftysnap = cp.changeorigin(xsnaptrue,ysnaptrue,140,-35.4205) #Last two arguments of function should be position of first marker on airfoil
+shifty2snap = [] # Array containing mirrored points (x-axis reflection)
+
+#Appends reflected points to shifty2snap
+for i in range(len(shiftysnap)):
+    shifty2snapi = -1*shiftysnap[i]
+    shifty2snap.append(shifty2snapi)
+
+#Create intervals to plot x and y axis
+xairint = np.linspace(-10,450,1000)
+yairint = np.linspace(-100,100,1000)
+xairintzero = np.zeros(len(xairint))
+yairintzero = np.zeros(len(yairint))
+
+#Plot airfoil c=400mm with column position superposed
+plt.ylim(-100,100) #Set y axis range (for scaling)
+plt.scatter(airx,airy,label='airfoil c=400m') #Airfoil data
+plt.plot(xairint,yairintzero) # x axis
+plt.plot(xairintzero,yairint) # y axis
+plt.scatter(shiftxsnap,shiftysnap) #column position shifted to fit on airfoil
+plt.scatter(shiftxsnap,shifty2snap) #Mirror of column position
+plt.legend()
+plt.show()
 
 #Few interesting plots
 fig, axs = plt.subplots(2, 2)
