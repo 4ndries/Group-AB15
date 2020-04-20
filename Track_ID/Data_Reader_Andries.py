@@ -10,13 +10,13 @@ T = True
 F = False
 #Options
 start = 0
-end = 50
+end = 700
 
 
 Snapshot = -1 #leave as -1 for off
 
 Scatter_plot = T
-Group_same_Track_IDs = F   #<----- Quite intesive
+Group_same_Track_IDs = T   #<----- Quite intesive
 legend = F
     
 Surface_plot = F
