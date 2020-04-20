@@ -102,7 +102,7 @@ def snap_array(lines,trackID):
     return boolean_array[0:-1], x_position_array[0:-1], y_position_array[0:-1], z_position_array[0:-1]
     
 boolean_array, x_position_array, y_position_array, z_position_array = snap_array(lines_copy, trackID)
-
+ 
 #verify in which snpashots appears a track_id
 def ID_presence(boolean_array,ID):
     """
@@ -123,4 +123,19 @@ def ID_presence(boolean_array,ID):
 
     return presence
 
-print(ID_presence(boolean_array,0)) #prints the snapshots in which trackID appears
+print(ID_presence(boolean_array,34)) #prints the snapshots in which trackID appears
+
+
+
+            
+
+    
+
+
+
+
+
+
+
+
+
