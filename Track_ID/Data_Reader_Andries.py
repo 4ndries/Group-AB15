@@ -34,7 +34,7 @@ Between 450-500 data is really bad
 
 #Rest
 i = 0
-rawData = open("Case1.dat","r")
+rawData = open("Case0.dat","r")
 lines = rawData.readlines()
 rawData.close()
 
