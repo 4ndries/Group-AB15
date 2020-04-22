@@ -70,23 +70,31 @@ def datamakecolumn(x, y, columnlengththreshold, xerror=10, yerror=10):
 #Input: x, y [array] len(n)
 #Output: xfinalcols, yfinalcols [array] len(n)
 #Takes column values and filters extremes using standard deviation
-def columnstdfilter(x,y,sigma=3):
+def columnstdfilter(x,y,z,sigma=3):
     xfinalcols = []
     yfinalcols = []
+    zfinalcols = []
     for i in range(len(x)):
         xcurrentfinalcols = []
         ycurrentfinalcols = []
-        sd = np.std(x[i])
+        zcurrentfinalcols = []
+        sdx = np.std(x[i])
+        sdy = np.std(y[i])
+        sdz = np.std(z[i])
         xmean = np.average(x[i])
         ymean = np.average(y[i])
+        zmean = np.average(z[i])
         for j in range(len(x[i])):
 
-            if  abs(x[i][j] - xmean)**2 + abs(y[i][j] - ymean)**2 <= (sigma*sd)**2:
+            if  abs(x[i][j] - xmean)**2 <= (sigma*sdx)**2 and abs(y[i][j]-ymean)**2 <= (sigma*sdy)**2 and abs(z[i][j]-zmean)**2 <= (sigma*sdz)**2:
                 xcurrentfinalcols.append(x[i][j])
                 ycurrentfinalcols.append(y[i][j])
-        xfinalcols.append(xcurrentfinalcols)
+                zcurrentfinalcols.append(z[i][j])
+
+        zfinalcols.append(xcurrentfinalcols)
         yfinalcols.append(ycurrentfinalcols)
-    return xfinalcols, yfinalcols
+        zfinalcols.append(zcurrentfinalcols)
+    return xfinalcols, yfinalcols, zfinalcols
 
 #Function: columnAverage
 #Input: x,y [array] len(n)

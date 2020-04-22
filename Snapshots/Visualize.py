@@ -7,14 +7,12 @@ lines = rawData.readlines()
 rawData.close()
 index = 20
 
+
+
 xx, yy, zz = cp.readsnapshotcoordinates(lines, index)
 xx = np.around(xx,2)
 yy = np.around(yy,2)
 zz = np.around(zz,2)
-
-
-
-
 
 
 zmin = 620
@@ -46,6 +44,7 @@ xcolsfinal = []
 zcolsfinal = []
 ycolsfinal = []
 averageList = []
+
 for i in range(len(xcolsraw)):
     average = round(np.average(xcolsraw[i]))
 
@@ -54,27 +53,30 @@ for i in range(len(xcolsraw)):
         xcolsfinal.append(xcolsraw[i])
         zcolsfinal.append(zcolsraw[i])
         ycolsfinal.append(ycolsraw[i])
+xcolsfinal,ycolsfinal,zcolsfinal = cp.columnstdfilter(xcolsfinal,ycolsfinal,zcolsfinal)
+
+
+
+
+
 newxx = []
 newzz = []
 newyy = []
 for i in range(len(xcolsfinal)):
     newxx.extend(xcolsfinal[i])
     newzz.extend(zcolsfinal[i])
-    newyy.extend(ycolsfinal)
+    newyy.extend(ycolsfinal[i])
 
 # plt.scatter(xx,yy, label='x-y plane with y on y axis')
 # plt.legend()
 # plt.show()
 
-plt.scatter(newxx,newzz, label='x-z plane with z on y axis')
+plt.scatter(xx,yy, label='x-z plane with z on y axis')
+plt.legend()
+plt.show()
+plt.scatter(newxx,newyy, label='z-y plane with y on y axis')
 plt.legend()
 plt.show()
 
-# plt.scatter(newxx,newyy, label='z-y plane with y on y axis')
-# plt.legend()
-# plt.show()
-
-print(len(ycolsfinal))
-print(ycolsfinal)
 
 
