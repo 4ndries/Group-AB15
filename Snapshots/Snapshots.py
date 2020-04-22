@@ -29,7 +29,7 @@ for airline in airlines:
 
 
 
-print(airx,airy)
+
 #For loop runs until specificed number of snapshots
 for masteri in range(100):
 
@@ -105,50 +105,52 @@ for i in range(len(shiftysnap)):
     shifty2snapi = -1*shiftysnap[i]
     shifty2snap.append(shifty2snapi)
 
-#Create intervals to plot x and y axis
-xairint = np.linspace(-10,450,1000)
-yairint = np.linspace(-100,100,1000)
-xairintzero = np.zeros(len(xairint))
-yairintzero = np.zeros(len(yairint))
+print(xsnapmean,ysnapmean)
 
-#Plot airfoil c=400mm with column position superposed
-plt.ylim(-100,100) #Set y axis range (for scaling)
-plt.scatter(airx,airy,label='airfoil c=400m') #Airfoil data
-plt.plot(xairint,yairintzero) # x axis
-plt.plot(xairintzero,yairint) # y axis
-plt.scatter(shiftxsnap,shiftysnap) #column position shifted to fit on airfoil
-plt.scatter(shiftxsnap,shifty2snap) #Mirror of column position
-plt.legend()
-plt.show()
+# #Create intervals to plot x and y axis
+# xairint = np.linspace(-10,450,1000)
+# yairint = np.linspace(-100,100,1000)
+# xairintzero = np.zeros(len(xairint))
+# yairintzero = np.zeros(len(yairint))
 
-#Few interesting plots
-fig, axs = plt.subplots(2, 2)
-axs[0, 0].scatter(xx, yy, s=10)
-axs[0, 0].set_title('Single Snapshot Coordinate Data')
-axs[0, 1].scatter(xsnaps[0], ysnaps[0],s=10)
-axs[0, 1].set_title('Single Snapshot Refined Column Position')
-axs[1, 0].scatter(newxx, newyy, s=10, marker='x')
-axs[1, 0].set_title('Refined Column Position of All Snapshots')
-axs[1, 1].scatter(xsnapmean, ysnapmean,s=10)
-axs[1, 1].set_title('Final Refined Column Position based on all snapshots')
-plt.show()
+# #Plot airfoil c=400mm with column position superposed
+# plt.ylim(-100,100) #Set y axis range (for scaling)
+# plt.scatter(airx,airy,label='airfoil c=400m') #Airfoil data
+# plt.plot(xairint,yairintzero) # x axis
+# plt.plot(xairintzero,yairint) # y axis
+# plt.scatter(shiftxsnap,shiftysnap) #column position shifted to fit on airfoil
+# plt.scatter(shiftxsnap,shifty2snap) #Mirror of column position
+# plt.legend()
+# plt.show()
 
-fig2, axs2 = plt.subplots(2, 2)
-axs2[0, 0].scatter(xsnaptrue, ysnaptrue, c='red')
-axs2[0, 0].plot(xint,yslope)
-axs2[0, 0].plot(xint,yintzero)
-axs2[0, 0].plot(xintzero,yint)
-axs2[0, 0].set_title('Final Refined Column Position shifted at zero with approx slope')
-axs2[0, 1].scatter(xsnaprotate, ysnaprotate, c='red')
-axs2[0, 1].plot(xint,yintzero)
-axs2[0, 1].plot(xintzero,yint)
-axs2[0, 1].set_title('Same points rotated by angle b/ x axis and line')
-axs2[1, 0].scatter(xsnaprotate, ysnaprotate, c='red')
-axs2[1, 0].scatter(xsnaprotate, y2snaprotate, c='red')
-axs2[1, 0].plot(xint,yintzero)
-axs2[1, 0].plot(xintzero,yint)
-axs2[1, 0].set_title('Rotated and Reflected')
-plt.show()
+# #Few interesting plots
+# fig, axs = plt.subplots(2, 2)
+# axs[0, 0].scatter(xx, yy, s=10)
+# axs[0, 0].set_title('Single Snapshot Coordinate Data')
+# axs[0, 1].scatter(xsnaps[0], ysnaps[0],s=10)
+# axs[0, 1].set_title('Single Snapshot Refined Column Position')
+# axs[1, 0].scatter(newxx, newyy, s=10, marker='x')
+# axs[1, 0].set_title('Refined Column Position of All Snapshots')
+# axs[1, 1].scatter(xsnapmean, ysnapmean,s=10)
+# axs[1, 1].set_title('Final Refined Column Position based on all snapshots')
+# plt.show()
+
+# fig2, axs2 = plt.subplots(2, 2)
+# axs2[0, 0].scatter(xsnaptrue, ysnaptrue, c='red')
+# axs2[0, 0].plot(xint,yslope)
+# axs2[0, 0].plot(xint,yintzero)
+# axs2[0, 0].plot(xintzero,yint)
+# axs2[0, 0].set_title('Final Refined Column Position shifted at zero with approx slope')
+# axs2[0, 1].scatter(xsnaprotate, ysnaprotate, c='red')
+# axs2[0, 1].plot(xint,yintzero)
+# axs2[0, 1].plot(xintzero,yint)
+# axs2[0, 1].set_title('Same points rotated by angle b/ x axis and line')
+# axs2[1, 0].scatter(xsnaprotate, ysnaprotate, c='red')
+# axs2[1, 0].scatter(xsnaprotate, y2snaprotate, c='red')
+# axs2[1, 0].plot(xint,yintzero)
+# axs2[1, 0].plot(xintzero,yint)
+# axs2[1, 0].set_title('Rotated and Reflected')
+# plt.show()
 
 
 

@@ -76,13 +76,16 @@ def columnstdfilter(x,y,sigma=3):
     for i in range(len(x)):
         xcurrentfinalcols = []
         ycurrentfinalcols = []
-        sd = np.std(x[i])
+        sdx = np.std(x[i])
+        sdy = np.std(y[i])
         xmean = np.average(x[i])
         ymean = np.average(y[i])
-        for j in range(len(x[i])):
 
-            if  abs(x[i][j] - xmean)**2 + abs(y[i][j] - ymean)**2 <= (sigma*sd)**2:
+        for j in range(len(x[i])):
+            if  abs(x[i][j] - xmean)**2 <= (sigma*sdx)**2:
                 xcurrentfinalcols.append(x[i][j])
+
+            if abs(y[i][j] - ymean)**2 <= (sigma*sdy)**2:
                 ycurrentfinalcols.append(y[i][j])
         xfinalcols.append(xcurrentfinalcols)
         yfinalcols.append(ycurrentfinalcols)
@@ -92,7 +95,7 @@ def columnstdfilter(x,y,sigma=3):
 #Input: x,y [array] len(n)
 #Output: xmean, ymean [array] len(m) where m = n = 8
 #Takes column coordinates and averages for each column returns array containg coordinates
-def columnaverage(x,y):
+def columnaverage(x, y):
 
     xmean = []
     ymean = []
@@ -101,7 +104,7 @@ def columnaverage(x,y):
         yaveragei = np.average(y[i])
         xmean.append(xaveragei)
         ymean.append(yaveragei)
-    return xmean, ymean
+    return xmean,ymean
 
 #Function: changeOrigin
 #Input: x,y [array] len(n), x0,y0 [int]
