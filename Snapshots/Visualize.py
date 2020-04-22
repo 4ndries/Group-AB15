@@ -6,6 +6,20 @@ import csv
 rawData = open(r"Snapshots\Case0.dat" , "r")
 lines = rawData.readlines()
 rawData.close()
+
+airData = open(r"Snapshots\Airfoilcoord.txt" , "r")
+airlines = airData.readlines()
+airData.close()
+
+airx, airy = [], []
+for airline in airlines:
+    columns = airline.split(",")
+    xi = float(columns[0])
+    yi = float(columns[1])
+    airx.append(xi)
+    airy.append(yi)
+
+
 index = 20
 xsnap = []
 ysnap = []
@@ -84,8 +98,8 @@ f = open('Snapshots\Case0Clean.csv', 'w')
 with f:
     writer = csv.writer(f)
     writer.writerows(coord)
-
-plt.scatter(xsnapmean,ysnapmean, label='x-z plane with z on y axis')
+plt.ylim(-100,100)
+plt.plot(airx,airy, label='airfoil')
 plt.legend()
 plt.show()
 
