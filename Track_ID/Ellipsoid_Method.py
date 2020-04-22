@@ -6,6 +6,7 @@ from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from Track_ID_Nico import snap_array
 from Track_ID_Nico import ID_presence
+from Data_Reader_Andries import Same_track_color_plot
 
 #opening the data file
 i = 0
@@ -86,7 +87,9 @@ while counter == second_counter:
             break
     second_counter = second_counter + 1
 
-print(track_together_table)           
+print(track_together_table)
+Same_track_color_plot(trackID,track_together_table) 
+
 
         
 

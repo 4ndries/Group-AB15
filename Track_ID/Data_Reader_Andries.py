@@ -10,7 +10,7 @@ T = True
 F = False
 #Options
 start = 0
-end = 20
+end = 100
 
 
 Snapshot = -1 #leave as -1 for off
@@ -118,7 +118,48 @@ if Scatter_plot == True:
     ax.set_ylabel('Y Label')
     ax.set_zlabel('Z Label')
 '''
-def Same_track_color_plot(list_x,list_y,list_z,trackID,List_of_combined_trackIDs):
+def Same_track_color_plot(trackID,List_of_combined_trackIDs): #(list_x,list_y,list_z,trackID,List_of_combined_trackIDs):
+    #Collect data
+    i = 0
+    rawData = open("Case0.dat","r")
+    lines = rawData.readlines()
+    rawData.close()
+
+
+
+    Data = []    
+    Value = []
+    list_x = []
+    list_y = []
+    list_z = []
+    trackID = []
+    for line in lines:
+        columns = line.split(" ")
+        if len(columns) == 13 and i < 10000:
+            
+            columns = line.split(" ")
+            x = columns[0].strip()
+            y = columns[1].strip()
+            z = columns[2].strip()
+            I = columns[3].strip()
+            u = columns[4].strip()
+            v = columns[5].strip()
+            w = columns[6].strip()
+            lVl = columns[7].strip()
+            trackID_ = int(columns[8].strip())
+            ax = columns[9].strip()
+            ay = columns[10].strip()
+            az = columns[11].strip()
+            lal = columns[12].strip()
+            list_x.append(float(x))
+            list_y.append(float(y))
+            list_z.append(float(z))
+            trackID.append(int(trackID_))
+            Value.append([x,y,z])
+            Data.append(Value)
+            i = i + 1
+
+    
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     #
@@ -139,15 +180,21 @@ def Same_track_color_plot(list_x,list_y,list_z,trackID,List_of_combined_trackIDs
         #same color base on track ID
         random.seed(trackID[i])
         ax.scatter(list_x[i],list_y[i],list_z[i],color=(random.randint(0,1000)/1000,random.randint(0,10000)/10000,random.randint(0,100000)/100000), marker='o')
-        if legend == T:
-            plt.legend(trackID)
+        
+        #Labling axis and clusters
+        
+        
         ax.set_xlabel('X Label')
         ax.set_ylabel('Y Label')
         ax.set_zlabel('Z Label')
+    for i in range(len(list(dict.fromkeys(trackID)))):
+            #ax.text(finalDf['principal component 1'][i],finalDf['principal component 2'][i],finalDf['principal component 3'][i],klm['Aircraft'][i]) 
+            print(i)
     return plt.show()
+    
         
-if Scatter_plot == True:
-   Same_track_color_plot(xx,yy,zz,trackID,((1,2),(3,4,5),(6,7,9,10))) 
+#if Scatter_plot == True:
+#   Same_track_color_plot(xx,yy,zz,trackID,((1,2),(3,4,5),(6,7,9,10))) 
     
     
 
