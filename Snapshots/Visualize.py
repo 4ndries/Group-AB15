@@ -101,7 +101,7 @@ with f:
 
 
 targetx = 385
-targety = -3.65765
+targety = -3.84116
 
 deltax = targetx - xsnapmean[-1]
 deltay = targety - ysnapmean[-1]
@@ -113,10 +113,16 @@ for i in range(len(xsnapmean)):
     yi = ysnapmean[i] + deltay
     xsnaptrans.append(xi)
     ysnaptrans.append(yi)
-print(ysnaptrans)
-plt.ylim(-150,150)
+xlin = np.linspace(0,400)
+ylin = np.zeros(len(xlin))
 
+
+
+
+#plt.ylim(-150,150)
 plt.plot(airx,airy,'--', label='airfoil')
+plt.plot(xlin,ylin)
+
 plt.scatter(xsnaptrans,ysnaptrans, color='r')
 plt.legend()
 plt.show()
