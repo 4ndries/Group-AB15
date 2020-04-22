@@ -70,39 +70,32 @@ def datamakecolumn(x, y, columnlengththreshold, xerror=10, yerror=10):
 #Input: x, y [array] len(n)
 #Output: xfinalcols, yfinalcols [array] len(n)
 #Takes column values and filters extremes using standard deviation
-def columnstdfilter(x,y,z,sigma=3):
+def columnstdfilter(x,y,sigma=3):
     xfinalcols = []
     yfinalcols = []
-    zfinalcols = []
     for i in range(len(x)):
         xcurrentfinalcols = []
         ycurrentfinalcols = []
-        zcurrentfinalcols = []
         sdx = np.std(x[i])
-        print(sdx)
         sdy = np.std(y[i])
-        sdz = np.std(z[i])
         xmean = np.average(x[i])
         ymean = np.average(y[i])
-        zmean = np.average(z[i])
-        for j in range(len(x[i])):
 
+        for j in range(len(x[i])):
             if  abs(x[i][j] - xmean)**2 <= (sigma*sdx)**2:
                 xcurrentfinalcols.append(x[i][j])
-            elif abs(y[i][j]-ymean)**2 <= (sigma*sdy)**2:
+
+            if abs(y[i][j] - ymean)**2 <= (sigma*sdy)**2:
                 ycurrentfinalcols.append(y[i][j])
-            elif abs(z[i][j]-zmean)**2 <= (sigma*sdz)**2:
-                zcurrentfinalcols.append(z[i][j])
-        zfinalcols.append(xcurrentfinalcols)
+        xfinalcols.append(xcurrentfinalcols)
         yfinalcols.append(ycurrentfinalcols)
-        zfinalcols.append(zcurrentfinalcols)
-    return xfinalcols, yfinalcols, zfinalcols
+    return xfinalcols, yfinalcols
 
 #Function: columnAverage
 #Input: x,y [array] len(n)
 #Output: xmean, ymean [array] len(m) where m = n = 8
 #Takes column coordinates and averages for each column returns array containg coordinates
-def columnaverage(x,y):
+def columnaverage(x, y):
 
     xmean = []
     ymean = []
@@ -111,7 +104,7 @@ def columnaverage(x,y):
         yaveragei = np.average(y[i])
         xmean.append(xaveragei)
         ymean.append(yaveragei)
-    return xmean, ymean
+    return xmean,ymean
 
 #Function: changeOrigin
 #Input: x,y [array] len(n), x0,y0 [int]
