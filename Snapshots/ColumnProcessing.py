@@ -79,6 +79,7 @@ def columnstdfilter(x,y,z,sigma=3):
         ycurrentfinalcols = []
         zcurrentfinalcols = []
         sdx = np.std(x[i])
+        print(sdx)
         sdy = np.std(y[i])
         sdz = np.std(z[i])
         xmean = np.average(x[i])

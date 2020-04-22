@@ -70,7 +70,7 @@ for i in range(len(xcolsfinal)):
 # plt.scatter(xx,yy, label='x-y plane with y on y axis')
 # plt.legend()
 # plt.show()
-
+print(newxx)
 plt.scatter(xx,yy, label='x-z plane with z on y axis')
 plt.legend()
 plt.show()
