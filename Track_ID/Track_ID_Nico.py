@@ -14,7 +14,7 @@ Between 450-500 data is really bad
 
 #opening the data file
 i = 0
-rawData = open("Case0.dat","r")
+rawData = open("Case1.dat","r")
 lines = rawData.readlines()
 lines_copy = lines
 rawData.close()
@@ -123,7 +123,7 @@ def ID_presence(boolean_array,ID):
 
     return presence
 
-print(ID_presence(boolean_array,34)) #prints the snapshots in which trackID appears
+#print(ID_presence(boolean_array,34)) #prints the snapshots in which trackID appears
 
 
 

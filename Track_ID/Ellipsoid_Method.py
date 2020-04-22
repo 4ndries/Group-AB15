@@ -9,7 +9,7 @@ from Track_ID_Nico import ID_presence
 
 #opening the data file
 i = 0
-rawData = open("Case1.dat","r")
+rawData = open("Case0.dat","r")
 lines = rawData.readlines()
 lines_copy = lines
 rawData.close()
@@ -37,12 +37,10 @@ for i in range(max(trackID)+1):
     row_i_need = [i,[x_position_array[first][i],y_position_array[first][i],z_position_array[first][i]],[x_position_array[last][i],y_position_array[last][i],z_position_array[last][i]]]
     table_i_need.append(row_i_need)
 
-
-
 "scaling factors"
-x_factor = 1
-y_factor = 1
-z_factor = 1
+x_factor = 20
+y_factor = 20
+z_factor = 8
 track_together_table = []
 for i in range(len(table_i_need)):
     for j in range(len(table_i_need)):
@@ -55,17 +53,41 @@ for i in range(len(table_i_need)):
         if i != j and j > i and (x-x0)*(x-x0)/x_factor + (y-y0)*(y-y0)/y_factor + (z-z0)*(z-z0)/z_factor < 1:
             track_together = [table_i_need[i][0],table_i_need[j][0]]
             track_together_table.append(track_together)
-            print(track_together)
-"""
-while 
-for i in range len(track_together_table):
-    for j in range len(track_together_table):
-        if track_together_table[i][1] == track_together_table[j][0]:
-            track_together_table[i] = track_together_table[i] + track_together_table[j]
-            track_together_remove(track_together_table[j]
-            find = True
+            
+counter = 0
+second_counter = 0
+while counter == second_counter:
+    for i in range(len(track_together_table)):
+        find = False
+        for j in range(len(track_together_table)):
+            if track_together_table[i][-1] == track_together_table[j][0]:
+                track_together_table[j].pop(0)
+                track_together_table[i] = track_together_table[i] + track_together_table[j]
+                track_together_table.remove(track_together_table[j])
+                find = True
+                counter = counter + 1
+                break
+        if find == True:
             break
-    if find:
-        break
+    second_counter = second_counter + 1
 
-print(track_together_table)"""
+counter = 0
+second_counter = 0
+while counter == second_counter:
+    for i in range(len(track_together_table)):
+        find = False
+        for j in range(len(track_together_table)):
+            if all(elem in track_together_table[i] for elem in track_together_table[j]) and i != j:
+                track_together_table.pop(j)
+                find = True
+                counter = counter + 1
+                break
+        if find == True:
+            break
+    second_counter = second_counter + 1
+
+print(track_together_table)           
+
+        
+
+

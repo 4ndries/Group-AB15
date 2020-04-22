@@ -10,7 +10,7 @@ T = True
 F = False
 #Options
 start = 0
-end = 700
+end = 20
 
 
 Snapshot = -1 #leave as -1 for off
@@ -73,11 +73,14 @@ for line in lines:
         i = i + 1
 
 #Sizing
-if Snapshot == -1:  
+if Snapshot == -1:            #add snapshot function later
+    
     xx = xx[start:end]
     yy = yy[start:end]
     zz = zz[start:end]
     trackID = trackID[start:end]
+
+    
 '''
     for i in range(
     
@@ -85,11 +88,17 @@ if Snapshot == -1:
     for i in range(len(xx)):
 '''        
         
+'''    
+def Track_Combiner(x_list,y_list,z_list,Track_ID):
+    #Collecting all points from the same track ID together
+    ID = 0
+    for i in Track ID:
+        if 
+'''    
     
-
  
             
-
+'''
 #print(Data[0][0][0])
 if Scatter_plot == True:
     fig = plt.figure()
@@ -108,6 +117,41 @@ if Scatter_plot == True:
     ax.set_xlabel('X Label')
     ax.set_ylabel('Y Label')
     ax.set_zlabel('Z Label')
+'''
+def Same_track_color_plot(list_x,list_y,list_z,trackID,List_of_combined_trackIDs):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    #
+    for i in range(len(trackID)):               #trackID cheaking
+        for a in List_of_combined_trackIDs:     #Group of comined trackID
+            #print(a)
+            base = -1
+            for b in a:                         #Parts of the group of trackIDs
+                if base == -1:
+                    base = b
+                if b == trackID[i]:
+                    trackID[i] = base
+    print(trackID)
+        
+    #Changing track ID
+    for i in range(len(xx)):
+        
+        #same color base on track ID
+        random.seed(trackID[i])
+        ax.scatter(list_x[i],list_y[i],list_z[i],color=(random.randint(0,1000)/1000,random.randint(0,10000)/10000,random.randint(0,100000)/100000), marker='o')
+        if legend == T:
+            plt.legend(trackID)
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        ax.set_zlabel('Z Label')
+    return plt.show()
+        
+if Scatter_plot == True:
+   Same_track_color_plot(xx,yy,zz,trackID,((1,2),(3,4,5),(6,7,9,10))) 
+    
+    
+
+
     
 #Color map
 if Surface_plot == True:
