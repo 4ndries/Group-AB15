@@ -86,11 +86,12 @@ def columnstdfilter(x,y,z,sigma=3):
         zmean = np.average(z[i])
         for j in range(len(x[i])):
 
-            if  abs(x[i][j] - xmean)**2 <= (sigma*sdx)**2 and abs(y[i][j]-ymean)**2 <= (sigma*sdy)**2 and abs(z[i][j]-zmean)**2 <= (sigma*sdz)**2:
+            if  abs(x[i][j] - xmean)**2 <= (sigma*sdx)**2:
                 xcurrentfinalcols.append(x[i][j])
+            elif abs(y[i][j]-ymean)**2 <= (sigma*sdy)**2:
                 ycurrentfinalcols.append(y[i][j])
+            elif abs(z[i][j]-zmean)**2 <= (sigma*sdz)**2:
                 zcurrentfinalcols.append(z[i][j])
-
         zfinalcols.append(xcurrentfinalcols)
         yfinalcols.append(ycurrentfinalcols)
         zfinalcols.append(zcurrentfinalcols)
