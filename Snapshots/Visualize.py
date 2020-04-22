@@ -7,7 +7,7 @@ rawData = open(r"Snapshots\Case0.dat" , "r")
 lines = rawData.readlines()
 rawData.close()
 
-airData = open(r"Snapshots\Airfoilcoord.txt" , "r")
+airData = open(r"Snapshots\airfoil.csv" , "r")
 airlines = airData.readlines()
 airData.close()
 
@@ -98,8 +98,32 @@ f = open('Snapshots\Case0Clean.csv', 'w')
 with f:
     writer = csv.writer(f)
     writer.writerows(coord)
-plt.ylim(-100,100)
-plt.plot(airx,airy, label='airfoil')
+
+
+targetx = 385
+targety = -3.84116
+
+deltax = targetx - xsnapmean[-1]
+deltay = targety - ysnapmean[-1]
+print(deltay)
+xsnaptrans = []
+ysnaptrans = []
+for i in range(len(xsnapmean)):
+    xi = xsnapmean[i]+deltax
+    yi = ysnapmean[i] + deltay
+    xsnaptrans.append(xi)
+    ysnaptrans.append(yi)
+xlin = np.linspace(0,400)
+ylin = np.zeros(len(xlin))
+
+
+
+
+#plt.ylim(-150,150)
+plt.plot(airx,airy,'--', label='airfoil')
+plt.plot(xlin,ylin)
+
+plt.scatter(xsnaptrans,ysnaptrans, color='r')
 plt.legend()
 plt.show()
 
