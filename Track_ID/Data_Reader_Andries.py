@@ -10,7 +10,7 @@ T = True
 F = False
 #Options
 start = 0
-end = 1000
+end = 6000
 
 
 Snapshot = -1 #leave as -1 for off
@@ -124,6 +124,7 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
     rawData = open("Case0.dat","r")
     lines = rawData.readlines()
     rawData.close()
+    
 
 
 
@@ -162,6 +163,12 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
     
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
+
+     #Temp take this out later
+    list_x = list_x[start:end]
+    list_y = list_y[start:end]
+    list_z = list_z[start:end]
+    trackID = trackID[start:end]
    
     for i in range(len(trackID)):               #trackID cheaking
         for a in List_of_combined_trackIDs:     #Group of comined trackID
@@ -172,11 +179,10 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
                     base = b
                 if b == trackID[i]:
                     trackID[i] = base
-    #Temp take this out later
-    list_x = list_x[start:end]
-    list_y = list_y[start:end]
-    list_z = list_z[start:end]
-    trackID = trackID[start:end]
+    
+    
+                    
+   
  
     
     #Changing track ID
@@ -194,8 +200,8 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
         ax.set_ylabel('Y Label')
         ax.set_zlabel('Z Label')
 
-    
-    for i in range(len(list(dict.fromkeys(trackID)))):
+    #print(list(dict.fromkeys(trackID)))
+    for i in list(dict.fromkeys(trackID)):
         counter = 0
         switch = 0
         x,y,z = 0,0,0
@@ -205,10 +211,10 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
             if counter > len(trackID)-2:
                 switch = 1
             if trackID[counter] == i:
-                x = list_x[i]
-                y = list_y[i]
-                z = list_z[i]
-                print(trackID[counter]  ,x      ,   y,  z , counter)   
+                x = list_x[counter]
+                y = list_y[counter]
+                z = list_z[counter]
+                print(trackID[counter],x,y,z,counter)   
                 switch = 1
                 
             
