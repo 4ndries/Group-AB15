@@ -119,11 +119,15 @@ ylin = np.zeros(len(xlin))
 
 
 
-plt.ylim(-150,150)
-plt.plot(airx,airy,'b--', label='airfoil')
-plt.plot(xlin,ylin, 'b--', label='airfoil chord line')
-plt.scatter(xsnaptrans,ysnaptrans, color='r', label='average column position')
-plt.title(label='PIV Case0 filtered column average translated to airfoil surface')
+#plt.ylim(-150,150)
+#plt.plot(airx,airy,'b--', label='airfoil')
+#plt.plot(xlin,ylin, 'b--', label='airfoil chord line')
+
+plt.scatter(newxx,newyy, label='filtered data for all snapshots in Case0')
+plt.scatter(xmean,ymean,color='r',label='average position of columns for all snapshots in Case0')
+plt.title(label='PIV Case0 filtered data and column average position')
+plt.xlabel('Position along chord x [mm]')
+plt.ylabel('Position along airfoil y axis (thickness) [mm]')
 plt.legend()
 plt.show()
 
