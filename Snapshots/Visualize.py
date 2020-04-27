@@ -24,7 +24,7 @@ index = 20
 xsnap = []
 ysnap = []
 
-for masteri in range(100):
+for masteri in range(21):
 
     xx, yy, zz = cp.readsnapshotcoordinates(lines, masteri)
     xx = np.around(xx,2)
@@ -119,11 +119,11 @@ ylin = np.zeros(len(xlin))
 
 
 
-#plt.ylim(-150,150)
-plt.plot(airx,airy,'--', label='airfoil')
-plt.plot(xlin,ylin)
-
-plt.scatter(xsnaptrans,ysnaptrans, color='r')
+plt.ylim(-150,150)
+plt.plot(airx,airy,'b--', label='airfoil')
+plt.plot(xlin,ylin, 'b--', label='airfoil chord line')
+plt.scatter(xsnaptrans,ysnaptrans, color='r', label='average column position')
+plt.title(label='PIV Case0 filtered column average translated to airfoil surface')
 plt.legend()
 plt.show()
 
