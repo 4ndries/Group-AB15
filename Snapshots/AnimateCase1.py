@@ -15,8 +15,6 @@ filelocation = 'Snapshots\Case1Clean.csv'
 
 snapshots, xsnapshots, ysnapshots = rc.readComplexCases(filelocation)
 
-
-
 for i in range(50):
     rand = random.randint(0,len(snapshots))
     plt.scatter(xsnapshots[i],ysnapshots[i])
