@@ -1,0 +1,42 @@
+UPDATE 28-04-2020 ------------------------------------------------
+
+After plotting the data and identifying the locations where data point are scattered, the next step is refining the data by statistical methods. The data will be spread out with coordinates corresponding to the measured marker locations. The imaging system and algorithm introduce noise. Sometimes the measured position is too far off the actual position and can not be used when trying to locate the model. These inconsistencies must be filtered out in order to be more accurate when estimating the position based on the coordinates. The plan is to filter out the noise by removing data points that are too far off the original, based on a certain threshold.
+
+The range of these thresholds is determined visually for each axis in order to filter out the clearly visible outliers. It is also essential that this threshold does not take out any actual points which may have deviated slightly. This is done combining separate track id's. These combined track id's will consist of more data points and therefore outliers can easily be filtered out. Subsequently, the data is then grouped based on these thresholds in what is called a "column". Each column represents the location of the structural markers as seen from the XY-plane.
+
+The grouped data points are then used to compute the standard deviation for both X and Y combined. In order to have a reliable set of data, all data considered within 3-sigma is taken into account when calculating the mean. This means that the means that 99.7% of the values lie within the standard deviation of the mean. The column-method is further elaborated upon in \autoref{subsec:columnmethod}
+
+For all three different cases (both static and moving), this noise filtering method can be used. However, once the airfoil starts rotating, it is of importance to change thresholds accordingly such that it includes all points in the "column" but excludes the outliers. Therefore, depending on the case, the initial thresholds are adjusted.
+
+
+On top of this, noise filtering was also done on the basis of the XZ-plane. This is done because this plane contains the exact grid of all points, each one having a distinct coordinate. There is a specific threshold radius for each point this time, therefore the noise can be filtered easier. Although these two approaches in terms of planes may look different, they can be put together to further refine the data. Even if they cannot be overlapped, both can provide a unique perspective.
+
+In conclusion:
+- The outliers are identified and removed by implying thresholds. The algorithm to optimize this by using other planes is still in development.
+- The averaged cross-section points can be visualized but there is still some work to do on getting the entire airfoil plotted once the wing is moving. 
+- Identifying and removing outliers: Look at the data visualization and make a filtering algorithm to remove outliers
+- Restricting data using standard deviation: make an algorithm that takes values within one standard deviation
+
+
+UPDATE 04-04-2020 ----------------------------------------------
+
+#Noise filtering
+The main focus to eliminate noise in order to have a clean set of data, was to determine the best thresholds for each of the columns within the dataset. 
+To begin with, the x-axis threshold is assumed to be fixed, as it apparetnly does not change between columns offrames. The y-axis threshold is different. 
+Because of this, for every group of points, a maximum and minimum y value was determined, and the rane between both of these values is the threshold. 
+If any point goes out of this threshold, even if it is within the same x-value, it will be treated as an outlier. This can be applied to any number of frames as desired. 
+Eventhough this ended up not making much of a impact on the data, it is worth knowing that the noise is being filtered correvtly. 
+This method can be also complemented with the method of eliminating other groups of outliers by inspecting the length of the array that holds these group in comparison with the columns' array length.
+
+One thing we could add is, consideration of z-coordinates. Although it's not possible to remove all the outliers just by looking at the z-coordinates, z-coordinates never change, so it may be effective to use as the first step before looking at x-y coordinates. 
+
+#Period
+In order to determine the contour or position of the airfoil at each angle, we have to consider each snapshot at a certain moment in time.
+Since the movement of the airfoil is sinusoidal in Case 1 & 2 with a given period of 2.5 seconds (0.4Hz), we can use this property to determine the times at which the airfoil is at the same position.
+Once you have the times at which the airfoil is at a certain position, you can relate that to the corresponding snapshots.
+In order to approximate the contour of the airfoil at different moments in time (but at the same position), you can plot the points of all corresponding snapshots.
+This results in several plots of the contour of the airfoil for each time it is at the same position. These points can subsequently be averaged using the column method that filters the outliers.
+
+On another note, we can already determine what kind of function represents the position of the airfoil.
+This is namely a periodic function with an amplitude of 4 degrees (given) and a frequency of 0.4Hz. 
+This can be written as a function alpha = 4*sin(2*pi*t). This function still might require shifting so at least the angle of one snapshot at a certain time is required to shift the graph correctly.

@@ -1,0 +1,35 @@
+UPDATE 28-04-2020 -------------------------------------------
+
+1.Eliposid Method
+In the update of the week before the exam week we mentioned that we came up with three different methods to combine track id’s. 
+In the end the only working method was the ellipsoid method. This method compares the last term in a track id and the first term of all the other track id’s. 
+If the first term of that other particular track id is in a virtual ellipsoid around the last term of the track id then the program combines the track id’s. 
+In the program we included three scaling factors for adapting the ellipsoid. One in every axis direction. 
+We keep these as variables to be able to find the perfect scaling factors for every case (case 0, case 1 and case 2). 
+When the program is done combining all track id’s it makes all the pairs into large strings of track id’s. 
+The final result is a table with a certain amount of large strings with combined track id’s. 
+To this table the track id’s are added that are present in every snapshot and therefore are not combined with any other track id. 
+This is the final result of the ellipsoid method. 
+
+2.Outlier Removal
+We have noticed that after combining the paths, we obtain 63 reconstructed paths for Case 0. 
+One reconstructed path should coincide to one individual  structural marker, so there should only be 56 of them. 
+By analyzing these paths, we have noticed that some of them appear in almost every snapshot(80+ out of 100), while others appear in just 10 of 20. 
+We have considered that these shorter paths are actually ghost paths( paths that don’t correspond to an actual marker) and that they must be removed. 
+Thus, it is appreciated that the noise filtering method would be even more effective as these path outliers would not be considered for the column method. 
+In the current script, we obtain 56 reconstructed paths if we consider a ghost path to have less than 40 points.
+
+3.Data Visualization
+A script for visualizing the data in 3D was developed. It can be clearly seen that after implementing the previously mentioned method for outlier removal, there are still some outliers present. 
+We are now working on adding individual labels for each cluster(reconstructed path) and we anticipate that this will help us figure out why outliers are still present and how we can remove them. 
+
+
+UPDATE 04-04-2020 -------------------------------------------------
+
+The Track ID group came up with a couple of rules for 
+programming. Besides that we came up with three methods
+for combining track ID's.
+1. This method makes use of the last 'term' in a trajectory with the same TrackID. Around this last term there is a virtual cylinder or egg shape and then looks if there is a first 'term' of a trajectory with the same TrackID present in this cylinder. If so, then it combines the two TrackID's.
+2. Regression method. For create a path "prediction" for each track ID by means of regression(not sure at this moment which type and whether we will be able to do it in 3D). The plan is to look for other track ID's whose coordinates are close to the the predicted path. In this way we would be able to group the track id's that a form a path.
+3. Connecting the cylinders method: By taking the starting point and the end point of a track ID and line is formed between theses two points. Then by using this line as the centerline of a cylinder or a TBD radius is extended from both sides to produce make the search area need to find the next point. The track ID of the point that is contained in this cylinder is then combined with the previous trackID forming one line.
+These programs will be finished before the next project session.
