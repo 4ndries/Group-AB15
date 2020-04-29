@@ -4,7 +4,7 @@ import ColumnProcessing as cp
 import csv
 import random
 
-rawData = open(r"Snapshots\Case1.dat" , "r")
+rawData = open(r"Snapshots\Case2.dat" , "r")
 lines = rawData.readlines()
 rawData.close()
 lx,ly, snapshots = [],[],[]
@@ -93,7 +93,7 @@ for i in range(len(lx)):
     ly[i] = newrowy
 print(lx)
 
-f = open('Snapshots\Case1Clean.csv', 'w')
+f = open('Snapshots\Case2Clean.csv', 'w')
 
 with f:
     writer = csv.writer(f)
