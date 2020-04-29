@@ -10,8 +10,7 @@ T = True
 F = False
 #Options
 start = 0
-end = 600
-
+end = 6000
 
 
 Snapshot = -1 #leave as -1 for off
@@ -125,6 +124,7 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
     rawData = open("Case0.dat","r")
     lines = rawData.readlines()
     rawData.close()
+    
 
 
 
@@ -163,7 +163,13 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
     
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    #
+
+     #Temp take this out later
+    list_x = list_x[start:end]
+    list_y = list_y[start:end]
+    list_z = list_z[start:end]
+    trackID = trackID[start:end]
+   
     for i in range(len(trackID)):               #trackID cheaking
         for a in List_of_combined_trackIDs:     #Group of comined trackID
             #print(a)
@@ -173,8 +179,12 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
                     base = b
                 if b == trackID[i]:
                     trackID[i] = base
-    print(trackID)
-        
+    
+    
+                    
+   
+ 
+    
     #Changing track ID
     for i in range(len(xx)):
         
@@ -183,14 +193,34 @@ def Same_track_color_plot(trackID,List_of_combined_trackIDs):
         ax.scatter(list_x[i],list_y[i],list_z[i],color=(random.randint(0,1000)/1000,random.randint(0,10000)/10000,random.randint(0,100000)/100000), marker='.')
         
         #Labling axis and clusters
-        
-        plt.legend(trackID)
+         
+        #plt.legend(trackID)
         
         ax.set_xlabel('X Label')
         ax.set_ylabel('Y Label')
         ax.set_zlabel('Z Label')
-    #for i in range(len(list(dict.fromkeys(trackID)))):
-            #ax.text(finalDf['list_x'][i],finalDf['list_y'][i],finalDf['list_z'][i],klm['TrackID'][i]) 
+
+    #print(list(dict.fromkeys(trackID)))
+    for i in list(dict.fromkeys(trackID)):
+        counter = 0
+        switch = 0
+        x,y,z = 0,0,0
+        while switch == 0:
+            #if couter 
+            counter = counter + 1
+            if counter > len(trackID)-2:
+                switch = 1
+            if trackID[counter] == i:
+                x = list_x[counter]
+                y = list_y[counter]
+                z = list_z[counter]
+                print(trackID[counter],x,y,z,counter)   
+                switch = 1
+                
+            
+                
+            #ax.text(finalDf['list_x'][i],finalDf['list_y'][i],finalDf['list_z'][i],klm['TrackID'][i])
+        ax.text(x,y,z,  '%s' % (str(i)), size=20, zorder=1,  color='k')
             #print(i)
     return plt.show()
     

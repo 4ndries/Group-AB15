@@ -113,15 +113,15 @@ print(xsnapmean,ysnapmean)
 # xairintzero = np.zeros(len(xairint))
 # yairintzero = np.zeros(len(yairint))
 
-# #Plot airfoil c=400mm with column position superposed
-# plt.ylim(-100,100) #Set y axis range (for scaling)
-# plt.scatter(airx,airy,label='airfoil c=400m') #Airfoil data
-# plt.plot(xairint,yairintzero) # x axis
-# plt.plot(xairintzero,yairint) # y axis
-# plt.scatter(shiftxsnap,shiftysnap) #column position shifted to fit on airfoil
-# plt.scatter(shiftxsnap,shifty2snap) #Mirror of column position
-# plt.legend()
-# plt.show()
+#Plot airfoil c=400mm with column position superposed
+plt.ylim(-100,100) #Set y axis range (for scaling)
+plt.scatter(airx,airy,label='airfoil c=400m') #Airfoil data
+plt.plot(xairint,yairintzero) # x axis
+plt.plot(xairintzero,yairint) # y axis
+plt.scatter(shiftxsnap,shiftysnap) #column position shifted to fit on airfoil
+plt.scatter(shiftxsnap,shifty2snap) #Mirror of column position
+plt.legend()
+plt.show()
 
 # #Few interesting plots
 # fig, axs = plt.subplots(2, 2)

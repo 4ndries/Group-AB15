@@ -79,6 +79,9 @@ for masteri in range(100):
         xsnap.append(xmean)
         ysnap.append(ymean)
 
+
+
+
 newxx = []
 newzz = []
 newyy = []
@@ -120,10 +123,14 @@ ylin = np.zeros(len(xlin))
 
 
 #plt.ylim(-150,150)
-plt.plot(airx,airy,'--', label='airfoil')
-plt.plot(xlin,ylin)
+#plt.plot(airx,airy,'b--', label='airfoil')
+#plt.plot(xlin,ylin, 'b--', label='airfoil chord line')
 
-plt.scatter(xsnaptrans,ysnaptrans, color='r')
+plt.scatter(newxx,newyy, label='filtered data for all snapshots in Case0')
+plt.scatter(xmean,ymean,color='r',label='average position of columns for all snapshots in Case0')
+plt.title(label='PIV Case0 filtered data and column average position')
+plt.xlabel('Position along chord x [mm]')
+plt.ylabel('Position along airfoil y axis (thickness) [mm]')
 plt.legend()
 plt.show()
 

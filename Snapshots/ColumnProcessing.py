@@ -100,8 +100,8 @@ def columnaverage(x, y):
     xmean = []
     ymean = []
     for i in range(len(x)):
-        xaveragei = np.average(x[i])
-        yaveragei = np.average(y[i])
+        xaveragei = round(np.average(x[i]),2)
+        yaveragei = round(np.average(y[i]),2)
         xmean.append(xaveragei)
         ymean.append(yaveragei)
     return xmean,ymean
