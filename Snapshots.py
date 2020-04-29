@@ -1,5 +1,3 @@
-
-#Packages
 import math
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -62,11 +60,9 @@ for masteri in range(len(nsnaps)):
             az = columns[11].strip()
             lal = columns[12].strip()
 
-
             xx.append(x) #Raw x data
             yy.append(y) #Raw y data
             zz.append(z) #Raw z data
-
 
             Value.append([x,y,z])
             Data.append(Value)
@@ -195,7 +191,7 @@ for masteri in range(len(nsnaps)):
             yshift.append(yshifti)
 
         return xshift, yshift #Shifted x, y coordinates
-
+        
     #Invoke function
     xtrue, ytrue = changeorigin(xmean,ymean,0,0)
 
@@ -224,10 +220,3 @@ for i in range(len(xsnaps)):
     plt.legend()
 
 plt.show()
-
-
-
-
-
-
-
