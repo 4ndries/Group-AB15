@@ -4,12 +4,12 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
-from Track_ID_Nico_original import snap_array
-from Track_ID_Nico_original import ID_presence
+from Track_ID_Nico import snap_array
+from Track_ID_Nico import ID_presence
 
 #opening the data file
 i = 0
-rawData = open("Case0.dat","r")
+rawData = open("Case2.dat","r")
 lines = rawData.readlines()
 lines_copy = lines
 rawData.close()
@@ -104,5 +104,5 @@ def filtering(boolean_array,track_together_table):
     return track_together_table
 
 track_together_table = filtering(boolean_array,track_together_table)
-print(len(track_together_table)) 
+print(track_together_table)
  
