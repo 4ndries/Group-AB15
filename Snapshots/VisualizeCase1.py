@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import ColumnProcessing as cp
 import csv
+import random
 
-rawData = open(r"Snapshots\Case0.dat" , "r")
+rawData = open(r"Snapshots\Case1.dat" , "r")
 lines = rawData.readlines()
 rawData.close()
 lx,ly, snapshots = [],[],[]
@@ -24,8 +25,9 @@ for airline in airlines:
 index = 20
 xsnap = []
 ysnap = []
+length = 3625
 
-for masteri in range(100):
+for masteri in range(length):
 
     xx, yy, zz = cp.readsnapshotcoordinates(lines, masteri)
     xx = np.around(xx,2)
@@ -82,6 +84,7 @@ for masteri in range(100):
         lx.append(xmean)
         ly.append(ymean)
         snapshots.append(masteri)
+    print('Snapshots +=1 Total: ', round(int(masteri)/int(length),2)*100, ' %')
 
 for i in range(len(lx)):
     newrowx = sorted(lx[i])
@@ -100,9 +103,12 @@ with f:
         void = 'Snapshot' + str(i)
         coord = [currentsnap,lx[i],ly[i]]
         rowin = [void,'x', 'y']
-        writer.writerow(rowin)
         writer.writerows(coord)
 
+for i in range(20):
+    rand = random.randint(0,len(snapshots))
+    plt.scatter(lx[i],ly[i])
+plt.show()
 
 
 # plt.scatter(newxx,newyy, label='filtered data for all snapshots in Case0')
