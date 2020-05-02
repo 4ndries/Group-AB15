@@ -25,7 +25,7 @@ trackID = []
 #reading the data file
 for line in lines:
     columns = line.split(" ")
-    if len(columns) == 13 and i < 10000:
+    if len(columns) == 13 and i < 200000:
         
         columns = line.split(" ")
         trackID_ = int(columns[8].strip())
