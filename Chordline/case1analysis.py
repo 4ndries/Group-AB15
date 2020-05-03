@@ -1,126 +1,119 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-dx=0.01
-def caseplot(i,xyz=None):
-    xyz =[] if xyz is None else xyz
-    with open('case1'+str(i)+'av.txt','r') as f:
-        for line in f:
-            splitline=line.split("\t")
-            xyz.append([float(splitline[0]),float(splitline[1])])
-            xyz.sort()
-        return xyz
+import random
+dx=0.1
+L=15.
+c=400
+N=1000
+
 x0=[]
 y0=[]
 with open('case0.txt','r') as f:
-        for line in f:
-            splitline=line.split("\t")
-            x0.append(float(splitline[0]))
-            y0.append(float((splitline[1])))
+    for line in f:
+        splitline=line.split("\t")
+        x0.append(float(splitline[0]))
+        y0.append(float(splitline[1])-3)
+flin0=np.poly1d(np.polyfit(x0[4:9],y0[4:9],1))
+theta0=np.arctan(flin0[1])
+f0=np.poly1d(np.polyfit(x0,y0,3))
+TE0=[x0[-1]+L,y0[-1]+L*(np.sin(np.arctan(flin0[1])))]
+LE0=[TE0[0]-c,TE0[1]]
+x0range=np.arange(x0[0],TE0[0]+dx,dx)
+#plt.scatter(x0,y0,c='r')
+#plt.scatter(TE0[0],TE0[1],s=100,c='r')
+#plt.scatter(LE0[0],LE0[1],s=100,c='r')
+#plt.plot(x0range,f0(x0range),linewidth=6,c='r')
+#plt.plot([TE0[0],LE0[0]],[TE0[1],LE0[1]],linewidth=4,c='r')
+#plt.legend(['case0'])
 
-xdat=[]   
+fulldata=[]
+with open('alldata.txt','r') as f:
+    for line in f:
+        splitline=line.split("\t")
+        fulldata.append(splitline)
 
-def xdata(i,xdat=None):
-    xdat=[] if xdat is None else xdat
-    for j in caseplot(i):
-        xdat.append(j[0])
-    return xdat
+selection=[]      
+for i in range(N):
+    selection.append(int(random.uniform(0,len(fulldata)/3)))
 
-ydat=[]
-def ydata(i,ydat=None):
-    ydat=[] if ydat is None else ydat
-    for j in caseplot(i):
-        ydat.append(j[1])
-    return ydat
+selection.sort()
+data=[]
+
+
+for j in selection:
+    data.append(fulldata[j*3])
+    data.append(fulldata[j*3+1])
+    data.append(fulldata[j*3+2])
+
+def casedata(i,x=None,y=None,SN=None):
+    x =[] if x is None else x
+    y =[] if y is None else y
+    SN=[] if SN is None else SN
+    k=(i*3)
+    for j in data[k]:
+        SN.append(float(j))
+    for j in data[k+1]:
+        x.append(float(j))
+    for j in data[k+2]:
+        y.append(float(j))
+    return [SN,x,y]
+
+       
+def f(i):
+    return np.poly1d(np.polyfit(casedata(i)[1],casedata(i)[2],3))
 
 def flin(i):
-    return np.poly1d(np.polyfit(xdata(i)[4:len(xdata(i))],ydata(i)[4:len(ydata(i))],1))
+    return np.poly1d(np.polyfit(casedata(i)[1][4:9],casedata(i)[2][4:9],1))
 
-def flin0(i):
-    return np.poly1d(np.polyfit(x0[i:len(x0)+1],y0[i:len(y0)+1],1))
-alfa0=(np.arctan(flin0(4)[1]))
-print(alfa0)
+def TE(i):
+    return [casedata(i)[1][-1]+L,casedata(i)[2][-1]+(L*np.arctan(flin(i)[1]))]
 
+def alpha(i):
+    return np.arctan(flin(i)[1])-theta0
 
+def LE(i):
+    return [TE(i)[0]-c*np.cos(alpha(i)),TE(i)[1]-c*np.sin(alpha(i))]
 
-
-
-
-
-
-
-
-
-TE=[-462.622,611.5]
-LE=[-862.698,612.206]
-X=[TE[0],LE[0]]
-Y=[TE[1],LE[1]]
-L=15
-
-
-theta=[]
-for i in range(1,9):
-    theta.append(np.arctan(flin(i)[1]))
-
-alfadeg=[]
-alfa=[]
-for i in range(len(theta)):
-    alfadeg.append((theta[i]-alfa0)*180/np.pi)
-    alfa.append((theta[i]-alfa0))
-snapshots=[0.,500,1000,1500,2000,2500,3000,3500]
-
-
-
-plt.scatter(snapshots,alfadeg,c='r')
+for i in range(int(len(data)/3)):
+    xrange=np.arange(min(casedata(i)[1]),max(casedata(i)[1])+dx,dx)
+    xlinrange=np.arange((casedata(i)[1][4]),TE(i)[0]+dx,dx)
+    #plt.plot(xrange,f(i)(xrange),'--')
+    #plt.plot(xlinrange,flin(i)(xlinrange))
+    #print('\n case nr '+str(i))
+    #print('snapshot nr: ',int(casedata(i)[0][0]))
+    #print('angle of attack: ',round(alpha(i)*(180/np.pi),3),' [deg]')
+    #print('Trailing Edge',TE(i))
+    #print('Leading Edge',LE(i))
+    #plt.scatter(casedata(i)[1],casedata(i)[2])
+    #plt.scatter(TE(i)[0],TE(i)[1],s=100)
+    #plt.scatter(LE(i)[0],LE(i)[1],s=100)
+    #plt.plot([TE(i)[0],LE(i)[0]],[TE(i)[1],LE(i)[1]],'--')
 plt.grid()
-plt.title('Snapshots Case1 angle of attack data ')
-plt.xlabel('snapshot nr')
-plt.ylabel('angle of attack [deg]')
+#plt.ylim(530,670)
+#plt.show()
+time=[]
+alfa=[]
+for i in range(int(len(data)/3)):
+    time.append((casedata(i)[0][0])/100)
+    alfa.append(alpha(i)*(180/np.pi))
+    plt.scatter((casedata(i)[0][0])/100,(alpha(i)*(180/np.pi)))
+    plt.title('Angle of attack')
+    plt.xlabel('time [sec]')
+    plt.ylabel('angle of attack [deg]')
+
+
+A=-4.3
+w=2*np.pi/2.05
+phi=-0.08
+c1=0.3
+
+x=np.arange(min(time),max(time)+dx,dx)
+def sinusoid(x):
+    return A*np.sin(w*x+phi)+c1
+plt.plot(x,sinusoid(x))
+
+plt.grid()    
 plt.show()
 
 
-c=400 
-TEtab=[]
-for i in range(1,9):
-    TEtab.append([xdata(i)[-1]+(L*np.cos(theta[i-1])),ydata(i)[-1]+L*np.sin(theta[i-1])])
-LEtab=[]
-for i in range(len(TEtab)):
-    LEtab.append([TEtab[i][0]-c*np.cos(alfa[i]),TEtab[i][1]-c*np.sin(alfa[i])])
-
-
-
-plt.title('Case11-18 average xy data plots')
-plt.xlabel('x')
-plt.ylabel('y')
-legend=['case0']
-colors=['b','g','r','c','m','y','k','brown']
-xrange=np.arange(-719,TE[0],0.1)
-plt.scatter(x0,y0,c='grey')
-f0=np.poly1d(np.polyfit(x0,y0,4))
-plt.scatter(TE[0],TE[1],c='grey',s=100)
-plt.scatter(LE[0],LE[1],c='grey',s=100)
-plt.plot(X,Y,c='grey',linewidth=3)
-
-
-
-def f(i):
-    return np.poly1d(np.polyfit(xdata(i),ydata(i),3))
-
-
-
-plt.plot(xrange,f0(xrange),c='grey',linewidth=3)
-
-for i in range(1,9):
-    if i<len(LEtab):
-        plt.plot([LEtab[i-1][0],TEtab[i][0]],[LEtab[i-1][1],TEtab[i][1]],'--',c=colors[i-1])
-    plt.scatter(LEtab[i-1][0],LEtab[i-1][1],c=colors[i-1],s=100)
-    plt.scatter(TEtab[i-1][0],TEtab[i-1][1],c=colors[i-1],s=100)
-    #print('\n averages case1'+str(i))
-    for j in range(len(caseplot(i))):
-        #print(caseplot(i)[j])
-        plt.scatter(caseplot(i)[j][0],caseplot(i)[j][1],c=colors[i-1])
-    plt.plot(xrange,f(i)(xrange),'--',c=colors[i-1])
-plt.legend(legend)
-plt.ylim(500,700)
-plt.show()
