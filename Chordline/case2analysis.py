@@ -8,7 +8,7 @@ dx=0.1
 L=15.
 c=400
 x_c=0.75
-N=1
+N=1500
 
 x0=[]
 y0=[]
@@ -67,7 +67,7 @@ def f(i):
     return np.poly1d(np.polyfit(casedata(i)[1][0:6],casedata(i)[2][0:6],3))
 
 def H(i):
-    return [H0[0],(f(i)(H0[0]))]
+    return [casedata(i)[1][4]+15,(f(i)(casedata(i)[1][4]+15))]
 
 def flapdata(i,flapx=None, flapy=None):
     flapx=[] if flapx is None else flapx
@@ -157,7 +157,7 @@ for i in range(N):
 
 plt.ylim(525,675)
 plt.grid()
-plt.show()
+#plt.show()
 
 
 
