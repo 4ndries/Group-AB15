@@ -8,6 +8,7 @@ from Track_ID_Nico import snap_array
 from Track_ID_Nico import ID_presence
 from Data_Reader_Andries import Same_track_color_plot
 import time
+import  datetime
 #opening the data file
 i = 0
 rawData = open("Case1.dat","r")
@@ -42,9 +43,9 @@ def trackid_combination(boolean_array,x_position_array,y_position_array,z_positi
         table_i_need.append(row_i_need)
 
     "scaling factors"
-    x_factor = 100
-    y_factor = 100
-    z_factor = 100
+    x_factor = 50
+    y_factor = 50
+    z_factor = 50
     track_together_table = []
     counter = 0
     second_counter = 0

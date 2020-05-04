@@ -93,7 +93,7 @@ def Same_track_color_plot(List_of_combined_trackIDs):
     rawData.close()
     #Options
     start = 0
-    end = 15000
+    end = 200000
     
     #Lists
     Data = []    

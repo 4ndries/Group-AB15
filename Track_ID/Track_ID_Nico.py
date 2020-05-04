@@ -64,7 +64,7 @@ def snap_array(lines,trackID):
     for line in lines:
         columns = line.split(None)
 
-        if len(columns) == 13 and i < 10000:
+        if len(columns) == 13 and i < 200000:
             columns = line.split(" ")
             x = columns[0].strip()
             y = columns[1].strip()
