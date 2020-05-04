@@ -102,21 +102,22 @@ def used_tracks(track_together_table):
 used_tracks_lst = used_tracks(track_together_table)
 #removing duplicates
 
-used_tracks_lst_0 = []
-for i in used_tracks_lst: 
-    if i not in used_tracks_lst_0: 
-        used_tracks_lst_0.append(i) 
+def csv_export(used_tracks_lst):
+    used_tracks_lst_0 = []
+    for i in used_tracks_lst: 
+        if i not in used_tracks_lst_0: 
+            used_tracks_lst_0.append(i) 
 
-f = open('Case2Paths.csv', 'w')
-csv.register_dialect("spaces", delimiter=" ")
+    f = open('Case2Pathsfunct.csv', 'w')
+    csv.register_dialect("spaces", delimiter=" ")
 
-with f:
-    writer = csv.writer(f)
-    for i in range(0,snaps):
-        writer.writerow(("Snapshot = {} .".format(i),"Track_ID","x","y","z"))
-        for j in used_tracks_lst_0:
-            if boolean_array[i,j] == 1:
-                writer.writerow((None,j,x_position_array[i,j],y_position_array[i,j],z_position_array[i,j]))
-f.close()
-print("Done")
-
+    with f:
+        writer = csv.writer(f)
+        for i in range(0,snaps):
+            writer.writerow(("Snapshot = {} .".format(i),"Track_ID","x","y","z"))
+            for j in used_tracks_lst_0:
+                if boolean_array[i,j] == 1:
+                    writer.writerow((None,j,x_position_array[i,j],y_position_array[i,j],z_position_array[i,j]))
+    f.close()
+    print("Done")
+csv_export(used_tracks_lst)
