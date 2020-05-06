@@ -30,11 +30,7 @@ def csv_export(used_tracks_lst,Case_Number,snaps,boolean_array,x_position_array,
         
     """
     import csv
-    used_tracks_lst_0 = []
-    for i in used_tracks_lst: 
-        if i not in used_tracks_lst_0: 
-            used_tracks_lst_0.append(i) 
-
+    
     f = open('Case'+str(Case_Number)+'Pathsfunct.csv', 'w') #file in which the program will write
     csv.register_dialect("spaces", delimiter=" ") #defines that the values will be delimited by a space
 
@@ -42,7 +38,7 @@ def csv_export(used_tracks_lst,Case_Number,snaps,boolean_array,x_position_array,
         writer = csv.writer(f)      #defines that the writer function is used for writing in the f file
         for i in range(0,snaps):    #we go through every snapshot
             writer.writerow(("Snapshot = {} .".format(i),"Track_ID","x","y","z")) #header row of each snapshot
-            for j in used_tracks_lst_0:
+            for j in used_tracks_lst:
                 if boolean_array[i,j] == 1:
                     writer.writerow((None,j,x_position_array[i,j],y_position_array[i,j],z_position_array[i,j]))
     f.close()
