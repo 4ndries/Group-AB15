@@ -119,5 +119,4 @@ def csv_export(used_tracks_lst):
                 if boolean_array[i,j] == 1:
                     writer.writerow((None,j,x_position_array[i,j],y_position_array[i,j],z_position_array[i,j]))
     f.close()
-    print("Done")
 csv_export(used_tracks_lst)
