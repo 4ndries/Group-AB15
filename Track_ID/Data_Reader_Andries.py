@@ -2,6 +2,7 @@
 '''
 So how this program will be described where the titles in Red with a'#' in frount will
 represet the name of a "Block" of code and green text will explain what is happing in that block.
+And hen nessissyr I will add comment tot he right of the line to explane what is going on in that line in particular
 
 Note: Ignore the red text with 3 '#' those are there just to time how fast is the code
 '''
@@ -132,7 +133,7 @@ def Same_track_color_plot(List_of_combined_trackIDs):
         ax.set_zlabel('Z axis(mm)')
     
     #Lable track IDs
-    '''So to the graph I will be adding a small lable to the trackID that it is trying to trace'''
+    '''Now I willl be adding a small lable to the graph to mark each track ID'''
     for i in list(dict.fromkeys(trackID)):
         if trackID[i] != -1:                            #Ofc we dont want to lable track ID -1
             counter = 0
