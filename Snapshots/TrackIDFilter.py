@@ -6,7 +6,7 @@ import ColumnProcessing as cp
 import random
 import csv
 import readCases as rc
-data = open(r"Snapshots\Case0Paths.csv", 'r')
+data = open(r"Snapshots\Case2Paths.csv", 'r')
 lines = data.readlines()
 data.close()
 
@@ -45,7 +45,7 @@ del ysnapshots[0]
 del zsnapshots[0]
 del trackids[0]
 del snapshots[-1]
-
+largest = 0
 for snapi in range(len(snapshots)):
 
     xx = np.around(xsnapshots[snapi],2)
@@ -91,11 +91,15 @@ for snapi in range(len(snapshots)):
     xcolsfinal,ycolsfinal = cp.columnstdfilter(xcolsfinal,ycolsfinal)
     xmean, ymean = cp.columnaverage(xcolsfinal, ycolsfinal)
 
-    if 9 > len(xmean) >= 6 and 9 > len(ymean) >= 6:
+    if 9 > len(xmean) >= 8 and 9 > len(ymean) >= 8:
         lx.append(xmean)
         ly.append(ymean)
         truesnapshots.append(snapi)
-    print('Snapshots +=1 Total: ', round(int(snapi)/int(len(snapshots)),2)*100, ' %')
+
+    last = round(int(snapi)/int(len(snapshots)),2)*100
+    if last > largest:
+        largest = last
+        print('Snapshots +=1 Total: ', round(int(snapi)/int(len(snapshots)),2)*100, ' %')
 
 for i in range(len(lx)):
     newrowx = sorted(lx[i])
@@ -103,7 +107,7 @@ for i in range(len(lx)):
     lx[i] = newrowx
     ly[i] = newrowy
 
-f = open('Snapshots\Case0TrackIDClean.csv', 'w')
+f = open('Snapshots\Case2BTrackIDClean.csv', 'w')
 
 
 with f:
