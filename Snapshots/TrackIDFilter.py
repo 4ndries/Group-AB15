@@ -57,41 +57,11 @@ for snapi in range(len(snapshots)):
     error = 10
     errorsqr = error**2
 
-    xcolsraw,ycolsraw,zcolsraw = [],[],[]
-    for i in range(len(xx)):
-
-        if  zmin <= zz[i] <= zmax:
-            currentcolx = []
-            currentcolz = []
-            currentcoly = []
-            currentcolx.append(xx[i])
-            currentcolz.append(zz[i])
-            currentcoly.append(yy[i])
-            for j in range(len(xx)):
-
-                if  zmin <= zz[j] <= zmax and (xx[j]-xx[i])**2 <= errorsqr and j != i:
-                    currentcolx.append(xx[j])
-                    currentcolz.append(zz[j])
-                    currentcoly.append(yy[j])
-            xcolsraw.append(currentcolx)
-            zcolsraw.append(currentcolz)
-            ycolsraw.append(currentcoly)
-    xcolsfinal = []
-    zcolsinvert = []
-    ycolsfinal = []
-    averageList = []
-    for i in range(len(xcolsraw)):
-        average = round(np.average(xcolsraw[i]))
-
-        if average not in averageList and len(xcolsraw[i]) >= 3:
-            averageList.append(average)
-            xcolsfinal.append(xcolsraw[i])
-            zcolsinvert.append(zcolsraw[i])
-            ycolsfinal.append(ycolsraw[i])
-    xcolsfinal,ycolsfinal = cp.columnstdfilter(xcolsfinal,ycolsfinal)
+    xcols,ycols = cp.datamakecolumn(xx,yy,3)
+    xcolsfinal,ycolsfinal = cp.columnstdfilter(xcols,ycols,3)
     xmean, ymean = cp.columnaverage(xcolsfinal, ycolsfinal)
 
-    if 9 > len(xmean) >= 8 and 9 > len(ymean) >= 8:
+    if  len(xmean) == 8 and len(ymean) == 8:
         lx.append(xmean)
         ly.append(ymean)
         truesnapshots.append(snapi)
@@ -118,11 +88,6 @@ with f:
         coord = [currentsnap,lx[i],ly[i]]
         writer.writerows(coord)
 
-
-for i in range(10):
-    rand = random.randint(0,len(lx))
-    plt.scatter(lx[rand][0:5],ly[rand][0:5])
-    plt.plot(lx[rand][5:],ly[rand][5:])
+for i in range(len(xsnapshots)):
+    plt.plot(lx[i],ly[i])
 plt.show()
-
-newxx,newyy = [],[]

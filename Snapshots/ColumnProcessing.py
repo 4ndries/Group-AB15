@@ -53,7 +53,7 @@ def datamakecolumn(x, y, columnlengththreshold, xerror=10, yerror=10):
     ycols = []
     xcolsum =[]
     for i in range(len(x)):
-        xcurrentcol = [x[i],x[j],x[j+1],x[j+2]]
+        xcurrentcol = [x[i]]
         ycurrentcol =[y[i]]
 
         for j in range(len(x)):

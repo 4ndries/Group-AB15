@@ -22,7 +22,8 @@ def animate(i):
 
 plt.title('Case2 Movement')
 plt.axis('off')
-anim = animation.FuncAnimation(fig,animate,init_func=init,frames=5000,interval=20,blit=True)
-anim.save('Snapshots\Animation.gif', writer='imagemagick', fps=30)
+anim = animation.FuncAnimation(fig,animate,init_func=init,frames=5000,interval=10,blit=True)
 plt.show()
+#anim.save('Snapshots\Animation.gif', writer='imagemagick', fps=30)
+
 
