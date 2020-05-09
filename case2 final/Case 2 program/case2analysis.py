@@ -107,11 +107,13 @@ def delta(i):
 plt.figure(1)
 
 plt.subplot(211)
-plt.title('Case 2 angle of attack recontruction')
+plt.title('Case 2 pitch angle reconstruction')
 plt.xlabel('time [sec]')
-plt.ylabel('Angle of Attack [deg]')
+plt.ylabel('Pitch angle [deg]')
+plt.yticks(np.arange(-4.5, 4.5, 1.5))
+plt.xlim(0,25)
 
-
+plt.grid()
 xtab=[]
 alphatab=[]
 deltatab=[]
@@ -161,16 +163,19 @@ print('R-squared value: ',round(deltaRsqd,6))
 
 plt.subplots_adjust(hspace=0.5)
 plt.subplot(212)
-plt.title('Case 2 Flap angle recontruction')
+plt.title('Case 2 flap deflection angle reconstruction')
 for i in range(N):
     plt.scatter((casedata(i)[0][0]/100),delta(i)*(180/np.pi),0.8,marker='s')
 plt.plot(x,sinusoid(x,deltafit[0][0],deltafit[0][1],deltafit[0][2],deltafit[0][3]))
 for i in range(N):
     plt.scatter((casedata(i)[0][0]/100),delta(i)*(180/np.pi),0.8,marker='s')
 plt.xlabel('time [sec]')
-plt.ylabel('Flap angle [deg]')
+plt.ylabel('Flap deflection angle [deg]')
+plt.yticks(np.arange(-7.5, 10, 2.5))
+plt.xlim(0,25)
 plt.legend([('Function fit R-squared=',round(deltaRsqd,6))],prop={'size':6},loc='upper right')
 
+plt.grid()
 plt.show()
 
 #plt.scatter(x0,y0,c='r')
