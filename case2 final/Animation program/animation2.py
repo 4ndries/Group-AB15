@@ -15,17 +15,17 @@ t = np.arange(tstart, tstop, dt)
 tstar=np.arange(tstart, tstop, 0.01)
 
 fig=plt.figure()
-plt.title('Chordline reconstruction Case2')
+plt.title('Chord line reconstruction Case 2')
 plt.xlabel('x [mm]')
 plt.ylabel('y [mm]')
 plt.xlim(xstart,xstop)
 plt.ylim(-100,100)
 
 def alpha(t):
-    return 4.*np.sin(((2*np.pi)/2.)*t+0.1)-0.8
+    return 3.554*np.sin((2.463)*t-0.044)-0.554
 
 def delta(t):
-    return -8*np.sin((2*np.pi/1.98)*t)
+    return -7.056*np.sin((2.463)*t+0.021)+0.03
 
 RP=[0.3*c,0]
 plt.scatter(RP[0],RP[1],c='r')
