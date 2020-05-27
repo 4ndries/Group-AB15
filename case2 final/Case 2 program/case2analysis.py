@@ -10,7 +10,7 @@ dx=0.1
 L=15.
 c=400
 x_c=0.75
-N=3600
+
 LH=18.91814314867475
 
 x0=[]
@@ -20,13 +20,14 @@ with open('case0.txt','r') as f:
         splitline=line.split("\t")
         x0.append(float(splitline[0]))
         y0.append(float(splitline[1])-3)
+
 flin0=np.poly1d(np.polyfit(x0[4:9],y0[4:9],1))
 f0=np.poly1d(np.polyfit(x0,y0,3))
 TE0=[x0[-1]+L,y0[-1]+L*(np.sin(np.arctan(flin0[1])))]
 LE0=[TE0[0]-c,TE0[1]]
 H0=[LE0[0]+c*(x_c),TE0[1]]
 
-theta0=np.arctan(((TE0[1]-LH)-y0[0])/(H0[0]-x0[0]))
+theta0=np.arctan((y0[4]-y0[0])/(x0[4]-x0[0]))
 
 x0range=np.arange(x0[0],TE0[0]+dx,dx)
 
@@ -37,9 +38,11 @@ with open('alldata2.txt','r') as f:
         splitline=line.split("\t")
         fulldata.append(splitline)
 
-selection=[]      
+
+N=int(len(fulldata)/3)
+print(N,'Amount of random selected data points')
 for i in range(N):
-    selection.append(int(random.uniform(0,len(fulldata)/3)))
+    selection=random.sample((range(0,int(len(fulldata)/3))),N)
 
 selection.sort()
 data=[]
@@ -85,10 +88,10 @@ def TE(i):
 
 
 def theta(i):
-    return np.arctan((H(i)[1]-casedata(i)[2][0])/(H(i)[0]-casedata(i)[1][0]))
+    return np.arctan((casedata(i)[2][4]-casedata(i)[2][0])/(casedata(i)[1][4]-casedata(i)[1][0]))
 
 def alpha(i):
-    return theta0-np.arctan(theta(i))
+    return theta0-(theta(i))
 
 def sinusoid(x,A,w,phi,c1):
     return A*np.sin(w*x+phi)+c1
@@ -102,8 +105,6 @@ def LE(i):
 def delta(i):
     return -(np.arctan((TE(i)[1]-H_chord(i)[1])/(TE(i)[0]-H_chord(i)[0]))+alpha(i))
 
-
-
 plt.figure(1)
 
 plt.subplot(211)
@@ -111,18 +112,18 @@ plt.title('Case 2 angle of attack recontruction')
 plt.xlabel('time [sec]')
 plt.ylabel('Angle of Attack [deg]')
 
-
 xtab=[]
 alphatab=[]
 deltatab=[]
 x=np.arange(0,36+dx,dx)
-
 for i in range(N):  
     plt.scatter((casedata(i)[0][0]/100),alpha(i)*(180/np.pi),0.8,marker='s')
     xtab.append((casedata(i)[0][0]/100))
     alphatab.append(alpha(i)*(180/np.pi))
     deltatab.append(delta(i)*(180/np.pi))
-    
+
+
+
 from scipy.optimize import curve_fit
 alphafit=curve_fit(sinusoid,xtab,alphatab,p0=[4.,2*np.pi/2.5,-0.3,-0.8])
 deltafit=curve_fit(sinusoid,xtab,deltatab,p0=[-8.,2*np.pi/2.5,0,0])
@@ -150,14 +151,17 @@ for i in range(len(xtab)):
 
 alphaRsqd=1-(SSRalpha)/(SSTalpha)
 deltaRsqd=1-(SSRdelta)/(SSTdelta)
-plt.legend([('Function fit R-squared=',round(alphaRsqd,6))],prop={'size':6},loc='upper right')
+plt.legend([('Function fit R-squared=',round(alphaRsqd,10))],prop={'size':6},loc='upper right')
 
 print('Angle of attack fit curve')
-print('Alpha= ',round(alphafit[0][0],3),'sin(',round(alphafit[0][1],3),'t  ',round(alphafit[0][2],3),') ',round(alphafit[0][3],3))
+print('Alpha= ',round(alphafit[0][0],3),'sin(',round(alphafit[0][1],3),'t  ',round(alphafit[0][2],3),') +',round(alphafit[0][3],3))
 print('R-squared value: ',round(alphaRsqd,6))
 print('\n Flap angle fit curve')
 print('Delta= ',round(deltafit[0][0],3),'sin(',round(deltafit[0][1],3),'t + ',round(deltafit[0][2],3),') +',round(deltafit[0][3]),3)
 print('R-squared value: ',round(deltaRsqd,6))
+
+
+
 
 plt.subplots_adjust(hspace=0.5)
 plt.subplot(212)
@@ -169,48 +173,6 @@ for i in range(N):
     plt.scatter((casedata(i)[0][0]/100),delta(i)*(180/np.pi),0.8,marker='s')
 plt.xlabel('time [sec]')
 plt.ylabel('Flap angle [deg]')
-plt.legend([('Function fit R-squared=',round(deltaRsqd,6))],prop={'size':6},loc='upper right')
+plt.legend([('Function fit R-squared=',round(deltaRsqd,10))],prop={'size':6},loc='upper right')
 
 plt.show()
-
-#plt.scatter(x0,y0,c='r')
-#plt.scatter(TE0[0],TE0[1],s=100,c='r')
-#plt.scatter(LE0[0],LE0[1],s=100,c='r')
-#plt.scatter(H0[0],H0[1],s=100,c='r')
-#plt.plot(x0range,f0(x0range),linewidth=6,c='r')
-#plt.plot([TE0[0],LE0[0]],[TE0[1],LE0[1]],linewidth=4,c='r')
-#plt.legend(['case0'])
-
-#for i in range(N):
-    #xrange=np.arange(casedata(i)[1][0],H(i)[0]+dx,dx)
-    #xlinrange=np.arange(H(i)[0],TE(i)[0]+dx,dx)
-    #plt.scatter(casedata(i)[1],casedata(i)[2],c='b')
-    #plt.scatter(TE(i)[0],TE(i)[1],s=50,c='b')
-    #plt.scatter(H(i)[0],H(i)[1],s=50,c='b')
-    #plt.scatter(LE(i)[0],LE(i)[1],s=50,c='b')
-    #plt.plot([LE(i)[0],H_chord(i)[0]],[LE(i)[1],H_chord(i)[1]],'--',c='b')
-    #plt.plot([H_chord(i)[0],H(i)[0]],[H_chord(i)[1],H(i)[1]],'--',c='b')
-    #plt.plot([H_chord(i)[0],TE(i)[0]],[H_chord(i)[1],TE(i)[1]],c='b')
-    #plt.plot(xrange,f(i)(xrange),'--',c='b')
-    #plt.plot(xlinrange,flapdata(i)(xlinrange),c='b')
-
-#plt.ylim(525,675)
-#plt.grid()
-#plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
