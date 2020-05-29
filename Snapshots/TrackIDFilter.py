@@ -6,7 +6,7 @@ import ColumnProcessing as cp
 import random
 import csv
 import readCases as rc
-data = open(r"Snapshots\Case2Paths.csv", 'r')
+data = open(r"Snapshots\Case0Paths.csv", 'r')
 lines = data.readlines()
 data.close()
 
@@ -77,7 +77,7 @@ for i in range(len(lx)):
     lx[i] = newrowx
     ly[i] = newrowy
 
-f = open('Snapshots\Case2BTrackIDClean.csv', 'w')
+f = open('Snapshots\Case0BTrackIDClean.csv', 'w')
 
 
 with f:
@@ -88,6 +88,7 @@ with f:
         coord = [currentsnap,lx[i],ly[i]]
         writer.writerows(coord)
 
-for i in range(len(xsnapshots)):
-    plt.plot(lx[i],ly[i])
+for i in range(len(lx)):
+    plt.scatter(lx[i],ly[i])
 plt.show()
+print(len(lx))
