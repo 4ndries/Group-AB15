@@ -118,6 +118,7 @@ if CaseSelection==2:
     plt.title('Case'+str(CaseSelection)+' angle of attack recontruction')
     plt.xlabel('time [sec]')
     plt.ylabel('Angle of Attack [deg]')
+    plt.subplot(211).set_yticks(np.arange(-6,6,1))
     plt.ylim(-6,6)
     xtab=[]
     alphatab=[]
