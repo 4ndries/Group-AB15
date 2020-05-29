@@ -6,7 +6,7 @@ import ColumnProcessing as cp
 import random
 import csv
 import readCases as rc
-data = open(r"Snapshots\Case0Paths.csv", 'r')
+data = open(r"Snapshots\Case1Pathsfunct.csv", 'r')
 lines = data.readlines()
 data.close()
 
@@ -77,7 +77,7 @@ for i in range(len(lx)):
     lx[i] = newrowx
     ly[i] = newrowy
 
-f = open('Snapshots\Case0BTrackIDClean.csv', 'w')
+f = open('Snapshots\Case1BTrackIDClean.csv', 'w')
 
 
 with f:
