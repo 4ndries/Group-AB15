@@ -17,6 +17,17 @@ from Table_to_CSV_converter_function import csv_export
 from Plotter_function import Same_track_color_plot
 from presence import ID_presence
 
+#=================================================================
+# DISCLAIMER
+#
+# This code runs rather slowly for Case 1 and Case 2 and you 
+# should expect about 1:30 hours until it is finished.
+# The programs firstly combines the trackID that form the same
+# path. Afterwards, the short paths, the outliers, are removed.
+# The filtered data is visualized and then exported as a csv file.            
+# 
+#=================================================================
+
 #input
 Case_Number = 1
 x_factor = 36

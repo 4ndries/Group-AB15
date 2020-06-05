@@ -5,6 +5,7 @@ from matplotlib import animation
 
 snapshots,xsnapshots,ysnapshots = rc.readComplexCases('Snapshots\Case2BTrackIDClean.csv')
 snapi = np.arange(0,len(xsnapshots))
+print(len(xsnapshots))
 
 
 fig = plt.figure()
