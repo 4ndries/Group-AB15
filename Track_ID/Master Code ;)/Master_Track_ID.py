@@ -18,12 +18,12 @@ from Plotter_function import Same_track_color_plot
 from presence import ID_presence
 
 #input
-Case_Number = 0
-x_factor = 16
-y_factor = 25
-z_factor = 4
-Number_of_Points_to_plot = 20000
-Filter_Treshold = 65
+Case_Number = 1
+x_factor = 36
+y_factor = 36
+z_factor = 20
+Number_of_Points_to_plot = 1000000
+Filter_Treshold = 1000
 
 
 #opening the boolean array and the x,y,z-arrays for chosen case number
